@@ -7,10 +7,8 @@
 //
 
 import Foundation
-import MVVM
 
-class ListViewModel: MVVM.ViewModel {
-    weak var delegate: ViewModelDelegate?
+class ListViewModel {
     
     func numberOfSections() -> Int {
         return 1
@@ -20,7 +18,7 @@ class ListViewModel: MVVM.ViewModel {
         return 1
     }
     
-    func viewModelForItem(at indexPath: IndexPath) -> ViewModel {
-        return CollectionCellViewModel()
+    func viewModelForItem(at indexPath: IndexPath) -> CollectionTableCellViewModel {
+        return CollectionTableCellViewModel()
     }
 }

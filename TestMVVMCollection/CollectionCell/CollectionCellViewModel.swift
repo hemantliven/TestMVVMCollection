@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import MVVM
 
-final class CollectionCellViewModel: MVVM.ViewModel {
+final class CollectionCellViewModel {
     
 }

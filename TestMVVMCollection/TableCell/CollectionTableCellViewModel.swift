@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import MVVM
 
-class CollectionTableCellViewModel: MVVM.ViewModel {
+class CollectionTableCellViewModel {
     
     func numberOfSections() -> Int {
         return 1
@@ -19,7 +18,7 @@ class CollectionTableCellViewModel: MVVM.ViewModel {
         return 1
     }
     
-    func viewModelForItem(at indexPath: IndexPath) -> ViewModel {
+    func viewModelForItem(at indexPath: IndexPath) -> CollectionCellViewModel {
         return CollectionCellViewModel()
     }
     

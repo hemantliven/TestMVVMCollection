@@ -7,14 +7,10 @@
 //
 
 import Foundation
-import MVVM
+import UIKit
 
-class CollectionCell: UICollectionViewCell, MVVM.View {
-    var viewModel: ViewModel = CollectionCellViewModel() {
-        didSet {
-            updateView()
-        }
-    }
+class CollectionCell: UICollectionViewCell {
+    var viewModel = CollectionCellViewModel()
     
     override func awakeFromNib() {
         super.awakeFromNib()

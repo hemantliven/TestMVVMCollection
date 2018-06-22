@@ -7,17 +7,13 @@
 //
 
 import Foundation
-import MVVM
+import UIKit
 
-class CollectionTableCell: UITableViewCell, MVVM.View {
+class CollectionTableCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var viewModel: ViewModel = CollectionTableCellViewModel() {
-        didSet {
-            updateView()
-        }
-    }
+    var viewModel = CollectionTableCellViewModel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,17 +29,17 @@ class CollectionTableCell: UITableViewCell, MVVM.View {
 extension CollectionTableCell: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.numberOfSections!()
+        return viewModel.numberOfSections()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems!(inSection: section)
+        return viewModel.numberOfItems(inSection: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as? CollectionCell
             else { fatalError() }
-        cell.viewModel = viewModel.viewModelForItem!(at: indexPath)
+        cell.viewModel = viewModel.viewModelForItem(at: indexPath)
         return cell
     }
 }
