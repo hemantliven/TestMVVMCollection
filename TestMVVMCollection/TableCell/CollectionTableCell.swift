@@ -21,12 +21,12 @@ class CollectionTableCell: UITableViewCell, MVVM.View {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.collectionView.reloadData()
         configureCollection()
         updateView()
     }
     
     func updateView() {
-        self.collectionView.reloadData()
     }
 }
 

@@ -10,6 +10,7 @@ import Foundation
 import MVVM
 
 class CollectionCell: UICollectionViewCell, MVVM.View {
+    
     var viewModel: CollectionCellViewModel = CollectionCellViewModel() {
         didSet {
             updateView()

@@ -10,7 +10,6 @@ import Foundation
 import MVVM
 
 class CollectionTableCellViewModel: MVVM.ViewModel {
-    
     var indexPath: IndexPath = IndexPath(row: 0, section: 0)
     
     func numberOfSections() -> Int {

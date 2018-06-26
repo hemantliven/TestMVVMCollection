@@ -10,7 +10,9 @@ import UIKit
 import MVVM
 
 class ViewController: UITableViewController, MVVM.View {
-
+    
+    var storedOffsets = [Int: CGFloat]()
+    
     var viewModel = ListViewModel() {
         didSet {
             updateView()
@@ -22,6 +24,7 @@ class ViewController: UITableViewController, MVVM.View {
         configTable()
         viewModel.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
     func updateView() {
@@ -55,8 +58,21 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionTableCell") as? CollectionTableCell
             else { fatalError() }
-        cell.viewModel = viewModel.viewModelForItem(at: indexPath)
+        let collectionTableCellViewModel: CollectionTableCellViewModel = viewModel.viewModelForItem(at: indexPath)
+        cell.viewModel = collectionTableCellViewModel
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? CollectionTableCell else { return }
+        
+        cell.collectionView.contentOffset.x = storedOffsets[indexPath.row] ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? CollectionTableCell else { return }
+        
+        storedOffsets[indexPath.row] = cell.collectionView.contentOffset.x
     }
 }
 

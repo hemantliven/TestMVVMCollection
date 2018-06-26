@@ -13,11 +13,11 @@ class ListViewModel: MVVM.ViewModel {
     weak var delegate: ViewModelDelegate?
     
     func numberOfSections() -> Int {
-        return 3
+        return 1
     }
     
     func numberOfItems(inSection section: Int) -> Int {
-        return 1
+        return 30
     }
     
     func viewModelForItem(at indexPath: IndexPath) -> CollectionTableCellViewModel {
