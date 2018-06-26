@@ -7,7 +7,11 @@
 //
 
 import Foundation
+import MVVM
 
-final class CollectionCellViewModel {
+final class CollectionCellViewModel: MVVM.ViewModel {
+    
+    var indexPath: IndexPath = IndexPath(row: 0, section: 0)
+    var parentSection: Int = 0
     
 }

@@ -7,13 +7,17 @@
 //
 
 import Foundation
-import UIKit
+import MVVM
 
-class CollectionTableCell: UITableViewCell {
+class CollectionTableCell: UITableViewCell, MVVM.View {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var viewModel = CollectionTableCellViewModel()
+    var viewModel: CollectionTableCellViewModel = CollectionTableCellViewModel() {
+        didSet {
+            updateView()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,9 +48,18 @@ extension CollectionTableCell: UICollectionViewDataSource {
     }
 }
 
+extension CollectionTableCell: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = CGSize(width: 120, height: 119)
+        return size
+    }
+}
+
 extension CollectionTableCell {
     fileprivate func configureCollection() {
         collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: "CollectionCell")
         collectionView.dataSource = self
+        collectionView.delegate = self
     }
 }

@@ -7,10 +7,14 @@
 //
 
 import Foundation
-import UIKit
+import MVVM
 
-class CollectionCell: UICollectionViewCell {
-    var viewModel = CollectionCellViewModel()
+class CollectionCell: UICollectionViewCell, MVVM.View {
+    var viewModel: CollectionCellViewModel = CollectionCellViewModel() {
+        didSet {
+            updateView()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,6 +22,7 @@ class CollectionCell: UICollectionViewCell {
     }
     
     func updateView() {
+        self.backgroundColor = UIColor(hue: ((CGFloat(viewModel.indexPath.row) * CGFloat(viewModel.parentSection + 1)) / 40.0), saturation: 0.68, brightness: 0.98, alpha: 1)
     }
     
 }

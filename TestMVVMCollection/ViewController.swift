@@ -7,40 +7,38 @@
 //
 
 import UIKit
+import MVVM
 
-//class ViewController: UIViewController {
-//    let tableView = UITableView()
-//    let viewModel = TableViewModel()
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        tableView.reloadData()
-//        // register cells and set data source
-//        // do layout stuff to show the table view
-//    }
-//}
-//
-//extension ViewController: UITableViewDataSource {
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return viewModel.numberOfSections
-//    }
-//    // etc.
-//}
+class ViewController: UITableViewController, MVVM.View {
 
-class ViewController: UITableViewController {
-
-    var viewModel = ListViewModel()
+    var viewModel = ListViewModel() {
+        didSet {
+            updateView()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configTable()
-        //viewModel.delegate = self
+        viewModel.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func updateView() {
+        guard isViewLoaded else { return }
+        tableView.reloadData()
+        viewDidUpdated()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+extension ViewController: ViewModelDelegate {
+    func viewModel(_ viewModel: ViewModel, didChangeItemsAt indexPaths: [IndexPath], for changeType: ChangeType) {
+        updateView()
     }
 }
 
@@ -65,8 +63,10 @@ extension ViewController {
 // MARK: - Private
 extension ViewController {
     fileprivate func configTable() {
-        tableView.register(CollectionTableCell.self, forCellReuseIdentifier: "CollectionTableCell")
         tableView.dataSource = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 120
+        tableView.tableFooterView = UIView()
     }
 }
 

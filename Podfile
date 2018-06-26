@@ -6,6 +6,7 @@ platform :ios, "9.0"
 use_frameworks!
 
 def shared_pods
+    pod 'MVVM-Swift', '~> 1.1'
 end
 
 
